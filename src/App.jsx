@@ -1,10 +1,10 @@
 import "./App.css";
-import Clock from "./components/Clock";
+import JokeFetcher from "./components/JokeFetcher";
 
 function App() {
   return (
     <>
-      <Clock></Clock>
+      <JokeFetcher></JokeFetcher>
     </>
   );
 }
