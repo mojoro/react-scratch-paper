@@ -1,10 +1,10 @@
 import "./App.css";
-import JokeFetcher from "./components/JokeFetcher";
+import GreetingForm from "./components/Greeting";
 
 function App() {
   return (
     <>
-      <JokeFetcher></JokeFetcher>
+      <GreetingForm></GreetingForm>
     </>
   );
 }
