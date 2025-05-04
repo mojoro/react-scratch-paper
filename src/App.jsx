@@ -1,11 +1,12 @@
 import "./App.css";
+import AdvancedDashboard from "./components/AdvancedDashboard";
 import GreetingForm from "./components/Greeting";
 import TodoApp from "./components/TodoApp";
 
 function App() {
   return (
     <>
-      <TodoApp></TodoApp>
+      <AdvancedDashboard></AdvancedDashboard>
     </>
   );
 }
