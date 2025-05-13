@@ -40,6 +40,7 @@
 // export default FunctionalInput;
 
 import { Component } from "react";
+import Count from "./Count";
 
 class ClassInput extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class ClassInput extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleInputChange(e) {
@@ -60,8 +62,45 @@ class ClassInput extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState((state) => ({
-      todos: state.todos.concat(state.inputVal),
+      todos: state.todos.concat({ todo: state.inputVal, isEditing: false }),
       inputVal: "",
+    }));
+  }
+
+  handleDelete(index) {
+    this.setState((state) => ({
+      ...state,
+      todos: state.todos.filter((todo, i) => i !== index),
+    }));
+  }
+
+  handleEdit(index) {
+    this.setState((state) => ({
+      ...state,
+      todos: state.todos.map((todo, i) => {
+        if (i == index) todo.isEditing = true;
+        return todo;
+      }),
+    }));
+  }
+
+  handleResubmit(index) {
+    this.setState((state) => ({
+      ...state,
+      todos: state.todos.map((todo, i) => {
+        if (i == index) todo.isEditing = false;
+        return todo;
+      }),
+    }));
+  }
+
+  handleTodoEdit(e, index) {
+    this.setState((state) => ({
+      ...state,
+      todos: state.todos.map((todo, i) => {
+        if (i == index) todo.todo = e.target.value;
+        return todo;
+      }),
     }));
   }
 
@@ -80,12 +119,31 @@ class ClassInput extends Component {
           />
           <button type="submit">Submit</button>
         </form>
-        <h4>All the tasks!</h4>
+        <h4>
+          All the tasks! <Count count={this.state.todos.length}></Count>
+        </h4>
         {/* The list of all the To-Do's, displayed */}
         <ul>
-          {this.state.todos.map((todo) => (
-            <li key={todo}>{todo}</li>
-          ))}
+          {this.state.todos.map((todo, index) => {
+            return !todo.isEditing ? (
+              <li key={index}>
+                {todo.todo}
+                <button onClick={() => this.handleDelete(index)}>X</button>
+                <button onClick={() => this.handleEdit(index)}>Edit</button>
+              </li>
+            ) : (
+              <li key={index}>
+                <input
+                  value={todo.todo}
+                  onChange={(e) => this.handleTodoEdit(e, index)}
+                ></input>
+                <button onClick={() => this.handleDelete(index)}>X</button>
+                <button onClick={() => this.handleResubmit(index)}>
+                  Resubmit
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </section>
     );
