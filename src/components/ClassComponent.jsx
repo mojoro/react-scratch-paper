@@ -120,7 +120,7 @@ class ClassInput extends Component {
           <button type="submit">Submit</button>
         </form>
         <h4>
-          All the tasks! <Count count={this.state.todos.length}></Count>
+          All the tasks! <Count todos={this.state.todos}></Count>
         </h4>
         {/* The list of all the To-Do's, displayed */}
         <ul>
@@ -134,7 +134,7 @@ class ClassInput extends Component {
             ) : (
               <li key={index}>
                 <input
-                  value={todo.todo}
+                  defaultValue={todo.todo}
                   onChange={(e) => this.handleTodoEdit(e, index)}
                 ></input>
                 <button onClick={() => this.handleDelete(index)}>X</button>
