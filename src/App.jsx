@@ -1,12 +1,10 @@
 import "./App.css";
-import AdvancedDashboard from "./components/AdvancedDashboard";
-import GreetingForm from "./components/Greeting";
-import TodoApp from "./components/TodoApp";
+import ClassInput from "./components/ClassComponent";
 
 function App() {
   return (
     <>
-      <AdvancedDashboard></AdvancedDashboard>
+      <ClassInput name="Todos"></ClassInput>
     </>
   );
 }
